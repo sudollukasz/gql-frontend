@@ -1,0 +1,414 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type AddAuthorPayload {
+    author(filter: AuthorFilter, first: Int, offset: Int, order: AuthorOrder): [Author]
+    numUids: Int
+}
+
+type AddBookPayload {
+    book(filter: BookFilter, first: Int, offset: Int, order: BookOrder): [Book]
+    numUids: Int
+}
+
+type Author {
+    books(filter: BookFilter, first: Int, offset: Int, order: BookOrder): [Book!]
+    booksAggregate(filter: BookFilter): BookAggregateResult
+    firstName: String
+    id: ID!
+    lastName: String
+}
+
+type AuthorAggregateResult {
+    count: Int
+    firstNameMax: String
+    firstNameMin: String
+    lastNameMax: String
+    lastNameMin: String
+}
+
+type Book {
+    author(filter: AuthorFilter): Author
+    id: ID!
+    name: String
+}
+
+type BookAggregateResult {
+    count: Int
+    nameMax: String
+    nameMin: String
+}
+
+type DeleteAuthorPayload {
+    author(filter: AuthorFilter, first: Int, offset: Int, order: AuthorOrder): [Author]
+    msg: String
+    numUids: Int
+}
+
+type DeleteBookPayload {
+    book(filter: BookFilter, first: Int, offset: Int, order: BookOrder): [Book]
+    msg: String
+    numUids: Int
+}
+
+type MultiPolygon {
+    polygons: [Polygon!]!
+}
+
+type Mutation {
+    addAuthor(input: [AddAuthorInput!]!): AddAuthorPayload
+    addBook(input: [AddBookInput!]!): AddBookPayload
+    deleteAuthor(filter: AuthorFilter!): DeleteAuthorPayload
+    deleteBook(filter: BookFilter!): DeleteBookPayload
+    updateAuthor(input: UpdateAuthorInput!): UpdateAuthorPayload
+    updateBook(input: UpdateBookInput!): UpdateBookPayload
+}
+
+type Point {
+    latitude: Float!
+    longitude: Float!
+}
+
+type PointList {
+    points: [Point!]!
+}
+
+type Polygon {
+    coordinates: [PointList!]!
+}
+
+type Query {
+    aggregateAuthor(filter: AuthorFilter): AuthorAggregateResult
+    aggregateBook(filter: BookFilter): BookAggregateResult
+    getAuthor(id: ID!): Author
+    getBook(id: ID!): Book
+    queryAuthor(filter: AuthorFilter, first: Int, offset: Int, order: AuthorOrder): [Author]
+    queryBook(filter: BookFilter, first: Int, offset: Int, order: BookOrder): [Book]
+}
+
+type UpdateAuthorPayload {
+    author(filter: AuthorFilter, first: Int, offset: Int, order: AuthorOrder): [Author]
+    numUids: Int
+}
+
+type UpdateBookPayload {
+    book(filter: BookFilter, first: Int, offset: Int, order: BookOrder): [Book]
+    numUids: Int
+}
+
+enum AuthorHasFilter {
+    books
+    firstName
+    lastName
+}
+
+enum AuthorOrderable {
+    firstName
+    lastName
+}
+
+enum BookHasFilter {
+    author
+    name
+}
+
+enum BookOrderable {
+    name
+}
+
+enum DgraphIndex {
+    bool
+    day
+    exact
+    float
+    fulltext
+    geo
+    hash
+    hour
+    int
+    int64
+    month
+    regexp
+    term
+    trigram
+    year
+}
+
+enum HTTPMethod {
+    DELETE
+    GET
+    PATCH
+    POST
+    PUT
+}
+
+enum Mode {
+    BATCH
+    SINGLE
+}
+
+input AddAuthorInput {
+    books: [BookRef!]
+    firstName: String
+    lastName: String
+}
+
+input AddBookInput {
+    author: AuthorRef
+    name: String
+}
+
+input AuthRule {
+    and: [AuthRule]
+    not: AuthRule
+    or: [AuthRule]
+    rule: String
+}
+
+input AuthorFilter {
+    and: [AuthorFilter]
+    has: [AuthorHasFilter]
+    id: [ID!]
+    not: AuthorFilter
+    or: [AuthorFilter]
+}
+
+input AuthorOrder {
+    asc: AuthorOrderable
+    desc: AuthorOrderable
+    then: AuthorOrder
+}
+
+input AuthorPatch {
+    books: [BookRef!]
+    firstName: String
+    lastName: String
+}
+
+input AuthorRef {
+    books: [BookRef!]
+    firstName: String
+    id: ID
+    lastName: String
+}
+
+input BookFilter {
+    and: [BookFilter]
+    has: [BookHasFilter]
+    id: [ID!]
+    not: BookFilter
+    or: [BookFilter]
+}
+
+input BookOrder {
+    asc: BookOrderable
+    desc: BookOrderable
+    then: BookOrder
+}
+
+input BookPatch {
+    author: AuthorRef
+    name: String
+}
+
+input BookRef {
+    author: AuthorRef
+    id: ID
+    name: String
+}
+
+input ContainsFilter {
+    point: PointRef
+    polygon: PolygonRef
+}
+
+input CustomHTTP {
+    body: String
+    forwardHeaders: [String!]
+    graphql: String
+    introspectionHeaders: [String!]
+    method: HTTPMethod!
+    mode: Mode
+    secretHeaders: [String!]
+    skipIntrospection: Boolean
+    url: String!
+}
+
+input DateTimeFilter {
+    between: DateTimeRange
+    eq: DateTime
+    ge: DateTime
+    gt: DateTime
+    in: [DateTime]
+    le: DateTime
+    lt: DateTime
+}
+
+input DateTimeRange {
+    max: DateTime!
+    min: DateTime!
+}
+
+input FloatFilter {
+    between: FloatRange
+    eq: Float
+    ge: Float
+    gt: Float
+    in: [Float]
+    le: Float
+    lt: Float
+}
+
+input FloatRange {
+    max: Float!
+    min: Float!
+}
+
+input GenerateMutationParams {
+    add: Boolean
+    delete: Boolean
+    update: Boolean
+}
+
+input GenerateQueryParams {
+    aggregate: Boolean
+    get: Boolean
+    password: Boolean
+    query: Boolean
+}
+
+input Int64Filter {
+    between: Int64Range
+    eq: Int64
+    ge: Int64
+    gt: Int64
+    in: [Int64]
+    le: Int64
+    lt: Int64
+}
+
+input Int64Range {
+    max: Int64!
+    min: Int64!
+}
+
+input IntFilter {
+    between: IntRange
+    eq: Int
+    ge: Int
+    gt: Int
+    in: [Int]
+    le: Int
+    lt: Int
+}
+
+input IntRange {
+    max: Int!
+    min: Int!
+}
+
+input IntersectsFilter {
+    multiPolygon: MultiPolygonRef
+    polygon: PolygonRef
+}
+
+input MultiPolygonRef {
+    polygons: [PolygonRef!]!
+}
+
+input NearFilter {
+    coordinate: PointRef!
+    distance: Float!
+}
+
+input PointGeoFilter {
+    near: NearFilter
+    within: WithinFilter
+}
+
+input PointListRef {
+    points: [PointRef!]!
+}
+
+input PointRef {
+    latitude: Float!
+    longitude: Float!
+}
+
+input PolygonGeoFilter {
+    contains: ContainsFilter
+    intersects: IntersectsFilter
+    near: NearFilter
+    within: WithinFilter
+}
+
+input PolygonRef {
+    coordinates: [PointListRef!]!
+}
+
+input StringExactFilter {
+    between: StringRange
+    eq: String
+    ge: String
+    gt: String
+    in: [String]
+    le: String
+    lt: String
+}
+
+input StringFullTextFilter {
+    alloftext: String
+    anyoftext: String
+}
+
+input StringHashFilter {
+    eq: String
+    in: [String]
+}
+
+input StringRange {
+    max: String!
+    min: String!
+}
+
+input StringRegExpFilter {
+    regexp: String
+}
+
+input StringTermFilter {
+    allofterms: String
+    anyofterms: String
+}
+
+input UpdateAuthorInput {
+    filter: AuthorFilter!
+    remove: AuthorPatch
+    set: AuthorPatch
+}
+
+input UpdateBookInput {
+    filter: BookFilter!
+    remove: BookPatch
+    set: BookPatch
+}
+
+input WithinFilter {
+    polygon: PolygonRef!
+}
+
+
+"""
+The DateTime scalar type represents date and time as a string in RFC3339 format.
+For example: "1985-04-12T23:20:50.52Z" represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
+"""
+scalar DateTime
+
+"""
+The Int64 scalar type represents a signed 64‐bit numeric non‐fractional value.
+Int64 can represent values in range [-(2^63),(2^63 - 1)].
+"""
+scalar Int64
